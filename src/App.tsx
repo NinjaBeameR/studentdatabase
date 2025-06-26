@@ -12,7 +12,7 @@ function App() {
   const [selectedClass, setSelectedClass] = useState<string>('');
 
   const handleLogin = () => {
-    if (password === 'admin@123') {
+    if (password === '@Hongirana!23') {
       setIsAuthenticated(true);
     } else {
       alert('Incorrect password');
@@ -228,5 +228,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
