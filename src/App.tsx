@@ -1,13 +1,23 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, GraduationCap } from 'lucide-react';
 
 type Section = 'primary' | 'middle' | 'high' | '';
 type OptionType = 'attendance' | 'exams' | 'marks' | '';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
   const [selectedSection, setSelectedSection] = useState<Section>('');
   const [selectedOption, setSelectedOption] = useState<OptionType>('');
   const [selectedClass, setSelectedClass] = useState<string>('');
+
+  const handleLogin = () => {
+    if (password === 'admin@123') {
+      setIsAuthenticated(true);
+    } else {
+      alert('Incorrect password');
+    }
+  };
 
   const handleSectionChange = (section: Section) => {
     setSelectedSection(section);
@@ -22,7 +32,7 @@ function App() {
 
   const getClassOptions = () => {
     if (selectedSection === 'primary') {
-      return ['Nursery', 'LKG', 'UKG', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5'];
+      return ['Nursery', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5'];
     } else if (selectedSection === 'middle') {
       return ['Class 6', 'Class 7', 'Class 8'];
     } else if (selectedSection === 'high') {
@@ -73,6 +83,29 @@ function App() {
   };
 
   const isFormComplete = selectedSection && selectedOption && selectedClass;
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full">
+          <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            className="w-full p-3 border rounded mb-4"
+          />
+          <button
+            onClick={handleLogin}
+            className="w-full bg-blue-600 text-white py-3 rounded font-semibold"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 px-4 py-8">
